@@ -53,4 +53,9 @@ void keyboard_post_init_user(){
 )
 </code></pre>
 
-7. Компилите `qmk compile -kb sofle -km lang_shift -e CONVERT_TO=rp2040_ce`
+7. Добавьте вызов функции `ls_process_record_user` в `process_record_user`
+```C
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    ls_process_record_user(keycode, record);
+```
+8. Компилите `qmk compile -kb sofle -km lang_shift -e CONVERT_TO=rp2040_ce`
