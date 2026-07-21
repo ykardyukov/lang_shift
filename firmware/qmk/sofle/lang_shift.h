@@ -57,5 +57,5 @@ void               ls_app_ctx_init(lang_shift_t *ctx);
 ls_lang_t          ls_get_language(void);
 ls_ch_lang_combo_t ls_ch_lang_combo(void);
 void               ls_switch_language(void);
-
+void ls_sent_alt_code(keyrecord_t *record, uint16_t KC1, uint16_t KC2, uint16_t KC3, uint16_t KC4);
 bool ls_process_record_user(uint16_t keycode, keyrecord_t *record);
