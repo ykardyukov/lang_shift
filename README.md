@@ -84,7 +84,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }  
 ```
-4. Повторите шаги 1-3 для каждого нового символа. Например, для символа рубля отправьте `ls_sent_alt_code(record, KC_P8, KC_P3, KC_P8, KC_P1)`
+4. Повторите шаги 1-3 для каждого нового символа. Например, для символа рубля отправьте `ls_sent_alt_code(record, KC_P0, KC_P0, KC_P0, KC_P8)`
 
 
 ## Плюсы
