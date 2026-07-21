@@ -112,6 +112,22 @@ void ls_int_same_lang(uint16_t KC, keyrecord_t *record) {
     }
 }
 
+void ls_sent_alt_code(keyrecord_t *record, uint16_t KC1, uint16_t KC2, uint16_t KC3, uint16_t KC4){
+        if (record->event.pressed){
+            register_code(KC_LALT);
+            register_code(KC1);
+            register_code(KC2);
+            register_code(KC3);
+            register_code(KC4);
+        } else {
+            unregister_code(KC_LALT);
+            unregister_code(KC1);
+            unregister_code(KC2);
+            unregister_code(KC3);
+            unregister_code(KC4);
+        }
+} 
+
 // Эту функцию нужно вызвать в process_record_user
 bool ls_process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
