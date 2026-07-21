@@ -1,19 +1,30 @@
 # Подключение lang shift
 
-Подключение на примере клавиатуры Sofle
+Подключение на примере клавиатуры [Sofle](https://github.com/qmk/qmk_firmware/tree/master/keyboards/sofle)
 
-1. Скопируйте файлы lang_shift.c и lang_shift.h в папку вашей клавиатуры (qmk_firmware/keyboards/sofle)
-2. В выбранном keymap в файле  rules.mk добавьте в конце строчку
-```
+1. Скопируйте файлы `lang_shift.c` и `lang_shift.h` в корневую папку вашей клавиатуры, на одном уровне с файлом `info.json` (`qmk_firmware/keyboards/sofle`)
+<pre><code>
+-rw-r--r-- 1  5111 июл  1 15:58 info.json
+drwxr-xr-x 1     0 июл 20 22:01 keymaps
+-rw-r--r-- 1  9520 июл 20 20:07 <b>lang_shift.c</b>
+-rw-r--r-- 1  2365 июл 20 20:09 <b>lang_shift.h</b>
+-rw-r--r-- 1  1846 июл  1 15:58 readme.md
+drwxr-xr-x 1     0 июл 20 22:00 rev1
+-rw-r--r-- 1  4039 июл  1 15:58 sofle.c
+</code></pre>
+2. В `rules.mk` в папке `keymaps` добавьте в конце строчку. При сборке компилятор включит указанный файл вместе с `keymap.c`
+```C
 SRC += ./lang_shift.c
 ```
-3. В файле keymap.c добавьте заголовочный файл библиотеки
-```
+3. В `файле keymap.c` добавьте заголовочный файл `lang_shift.h`
+```C
 #include "lang_shift.h"
 ```
-4. В файле keymap.c инициируйте библиотеку
+4. В файле `keymap.c` определите callback-функцию `keyboard_post_init_user()`, ее вызовет QMK после окончания инициализации клавиатуры:
+   - `ctx.language` - текущий язык в клавиатуре. Рекомендуется ставить таким же, что и основной язык в OS. Возможные значения ENGLISH или RUSSIAN
+   - `ctx.ch_lang_combo` = комбинация клавиш, которая переключает язык в OS (ALTSHIFT, WINSPACE, CTRLSHIFT)
 
-```
+```C
 void keyboard_post_init_user(){
     lang_shift_t ctx;
     ctx.language = ENGLISH;
@@ -32,7 +43,7 @@ void keyboard_post_init_user(){
 ),
 </code></pre>
 6. В отдельном слое задать символы
-```
+<pre><code>
 [_LOWER] = LAYOUT(
   _______,   _______,   _______,   _______,   _______,   _______,                       _______,   _______,   _______,   _______,  _______,  _______,
   LS_AT,    LS_HASH,    LS_LCBR,    LS_RCBR,    LS_GT,    LS_LT,                       LS_AMPR,    LS_PERC,    LS_COLN,    LS_SCLN,    LS_QUOT,  LS_DQUO,
@@ -40,6 +51,6 @@ void keyboard_post_init_user(){
   _______,  LS_PIPE, LS_DLR, LS_ASTR, LS_CIRC, LS_BSLS, _______,       _______, LS_GRV, LS_TILD, LS_CH_COMBO, LS_SW_KB_LANG, _______, _______,
                        _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
 )
-```
+</code></pre>
 
-7. Компилите qmk compile -kb sofle -km lang_shift -e CONVERT_TO=rp2040_ce
+7. Компилите `qmk compile -kb sofle -km lang_shift -e CONVERT_TO=rp2040_ce`
